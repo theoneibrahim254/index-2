@@ -1,22 +1,21 @@
-# KitchenPro M-Pesa STK Push
+# KitchenPro M-Pesa STK Push with IntaSend
 
-This branch contains a Vercel version of the KitchenPro site with a Daraja STK Push endpoint. The `main` branch remains the current GitHub Pages site.
+This branch contains the Vercel version of the KitchenPro site and uses IntaSend's M-Pesa STK Push API. The `main` branch remains separate from the Vercel project.
 
 ## Deploy on Vercel
 
 1. Import `theoneibrahim254/index-2` into Vercel and select the `mpesa-stk` branch.
-2. Deploy once to obtain a Vercel URL, then set the environment variables below in Vercel Project Settings. Add `MPESA_CALLBACK_URL` using that site's `/api/mpesa/callback` URL and redeploy.
-3. Keep `MPESA_ENV=sandbox` while testing with Safaricom Daraja sandbox credentials. Use production credentials and `MPESA_ENV=production` only after Safaricom has enabled the shortcode and STK Push product.
-4. Do not put credentials in HTML, Git, chat, or `SITE_URL`. Add each secret directly in Vercel's private Environment Variables interface.
+2. Set `SITE_URL` to the exact Vercel production origin.
+3. Add `INTASEND_SECRET_KEY` as a Vercel Secret. Use an IntaSend test key (`ISSecretKey_test_...`) for sandbox; a live key (`ISSecretKey_live_...`) switches requests to live payments.
+4. Create an IntaSend webhook for `collection_event`, set its endpoint to `https://your-vercel-domain.vercel.app/api/intasend/webhook`, and save a strong random challenge in Vercel as `INTASEND_WEBHOOK_CHALLENGE`.
+5. Redeploy after adding or changing environment variables. Do not put credentials in HTML, Git, chat, or `SITE_URL`.
 
-Required variables: `SITE_URL`, `MPESA_ENV`, `MPESA_CONSUMER_KEY`, `MPESA_CONSUMER_SECRET`, `MPESA_SHORTCODE`, `MPESA_PARTY_B`, `MPESA_TRANSACTION_TYPE`, `MPESA_PASSKEY`, and `MPESA_CALLBACK_URL`.
+Required variables: `SITE_URL`, `INTASEND_SECRET_KEY`, and `INTASEND_WEBHOOK_CHALLENGE`.
 
-`SITE_URL` must be the exact deployed origin, such as `https://your-site.vercel.app`. The callback URL must be a public HTTPS URL.
-
-For a Paybill, set `MPESA_TRANSACTION_TYPE=CustomerPayBillOnline` and use the Paybill number for `MPESA_PARTY_B`. For a Till, set `MPESA_TRANSACTION_TYPE=CustomerBuyGoodsOnline` and use the Till number for `MPESA_PARTY_B`. Confirm these values with the Safaricom Daraja app configuration.
+Use the official IntaSend dashboard to create sandbox/live keys and configure the webhook. IntaSend uses the same API base URL for both environments; the key prefix selects test or live mode.
 
 ## Payment behavior
 
-The API uses a server-side allowlist for product prices and accepts Kenyan mobile numbers in local or `254` format. A `202` response means Safaricom accepted the STK request, not that the customer paid. The callback endpoint acknowledges callbacks but does not store or reconcile them. This is a prompt-only integration; add a persistent order/payment store and callback signature/transaction validation before using it as an order-confirmation system. Configure request rate limiting for `/api/mpesa` in Vercel before production to reduce unsolicited prompt abuse.
+The API uses a server-side allowlist for product prices and accepts Kenyan mobile numbers in local or `254` format. A `202` response means IntaSend created the invoice, not that the customer paid. The webhook verifies its configured challenge and re-checks invoice status, but does not store orders or fulfill them. Only fulfill orders after matching an `api_ref`, amount and currency against a persistent order record and confirming the invoice is `COMPLETE`. Configure request rate limiting for `/api/mpesa` in Vercel before live use to reduce unsolicited prompt abuse.
 
-The live GitHub Pages site does not support `/api/mpesa`; use the Vercel deployment for STK Push.
+The GitHub Pages site does not support `/api/mpesa`; use the Vercel deployment for STK Push.
