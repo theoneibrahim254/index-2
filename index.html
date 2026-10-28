@@ -1400,6 +1400,10 @@
       </section>
     </main>
 
+    <div class="container">
+      <p class="payment-status" id="pesapalReturnStatus" role="status" aria-live="polite"></p>
+    </div>
+
     <footer>
       <div class="container">
         © 2026 KitchenPro Essentials. Crafted for better cooking and happier homes.
@@ -1409,11 +1413,11 @@
     <div class="mpesa-modal" id="mpesaModal" aria-hidden="true">
       <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mpesaTitle">
         <div class="modal-top">
-          <h3 id="mpesaTitle">Pay with M-Pesa</h3>
+          <h3 id="mpesaTitle">Continue with Pesapal</h3>
           <button class="modal-close" type="button" data-close-mpesa>Close</button>
         </div>
         <div class="modal-body">
-          <p>Enter your phone number to receive an M-Pesa prompt. You will need to approve it on your phone.</p>
+          <p>Continue to Pesapal's secure checkout to choose an available payment method, including M-Pesa.</p>
           <form id="mpesaForm">
             <input id="mpesaProductId" type="hidden" />
             <div class="form-row">
@@ -1425,16 +1429,20 @@
               <input id="mpesaAmount" type="text" readonly />
             </div>
             <div class="form-row">
+              <label for="mpesaCustomerName">Full name</label>
+              <input id="mpesaCustomerName" type="text" autocomplete="name" maxlength="100" required />
+            </div>
+            <div class="form-row">
               <label for="mpesaPhone">M-Pesa phone number</label>
               <input id="mpesaPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07XX XXX XXX" pattern="(?:\+?254|0)(?:7|1)[0-9]{8}" required />
             </div>
-            <p class="payment-note">Your number is used to request the prompt. No payment is taken unless you approve it on your phone.</p>
+            <p class="payment-note">You will review the amount and approve payment on Pesapal's checkout page.</p>
             <label class="payment-consent" for="mpesaConsent">
               <input id="mpesaConsent" type="checkbox" required />
-              <span>I authorize an M-Pesa prompt for this purchase. I will approve it on my phone only if the details are correct.</span>
+              <span>I agree to continue to Pesapal with my order and contact details.</span>
             </label>
             <div class="modal-actions">
-              <button class="btn btn-primary" id="mpesaSubmit" type="submit">Send M-Pesa prompt</button>
+              <button class="btn btn-primary" id="mpesaSubmit" type="submit">Continue to Pesapal</button>
             </div>
             <p class="payment-status" id="mpesaStatus" role="status" aria-live="polite"></p>
           </form>
@@ -1451,8 +1459,10 @@
       const mpesaModal = document.getElementById('mpesaModal');
       const mpesaForm = document.getElementById('mpesaForm');
       const mpesaPhone = document.getElementById('mpesaPhone');
+      const customerNameInput = document.getElementById('mpesaCustomerName');
       const mpesaStatus = document.getElementById('mpesaStatus');
       const mpesaSubmit = document.getElementById('mpesaSubmit');
+      const pesapalReturnStatus = document.getElementById('pesapalReturnStatus');
 
       function closeMpesaPrompt() {
         mpesaModal.classList.remove('visible');
@@ -1470,6 +1480,7 @@
           document.getElementById('mpesaProduct').value = product.name;
           document.getElementById('mpesaAmount').value = `KSh ${product.amount.toLocaleString('en-KE')}`;
           mpesaPhone.value = '';
+          customerNameInput.value = '';
           mpesaStatus.textContent = '';
           mpesaStatus.removeAttribute('data-state');
           mpesaModal.classList.add('visible');
@@ -1492,29 +1503,67 @@
 
         mpesaSubmit.disabled = true;
         mpesaStatus.removeAttribute('data-state');
-        mpesaStatus.textContent = 'Sending your request...';
+        mpesaStatus.textContent = 'Preparing secure Pesapal checkout...';
 
         try {
-          const response = await fetch('/api/mpesa', {
+          const response = await fetch('/api/pesapal', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               productId: document.getElementById('mpesaProductId').value,
-              phone: mpesaPhone.value
+              phone: mpesaPhone.value,
+              fullName: customerNameInput.value
             })
           });
           const result = await response.json().catch(() => ({}));
-          if (!response.ok) throw new Error(result.error || 'The M-Pesa prompt could not be sent.');
-
-          mpesaStatus.dataset.state = 'success';
-          mpesaStatus.textContent = 'Prompt sent. Check your phone and approve only if the product and amount are correct. This page does not confirm payment.';
+          if (!response.ok || !result.redirectUrl) throw new Error(result.error || 'Could not open Pesapal checkout.');
+          window.location.assign(result.redirectUrl);
         } catch (error) {
           mpesaStatus.dataset.state = 'error';
-          mpesaStatus.textContent = error.message || 'The M-Pesa prompt could not be sent. Please try again.';
+          mpesaStatus.textContent = error.message || 'Could not open Pesapal checkout. Please try again.';
         } finally {
           mpesaSubmit.disabled = false;
         }
       });
+
+      async function showPesapalPaymentResult() {
+        const query = new URLSearchParams(window.location.search);
+        if (query.get('payment') === 'cancelled') {
+          pesapalReturnStatus.dataset.state = 'error';
+          pesapalReturnStatus.textContent = 'Checkout was cancelled. No payment is confirmed.';
+          window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+          return;
+        }
+
+        const orderTrackingId = query.get('OrderTrackingId');
+        const merchantReference = query.get('OrderMerchantReference');
+        if (!orderTrackingId || !merchantReference) return;
+
+        pesapalReturnStatus.textContent = 'Checking payment status with Pesapal...';
+        try {
+          const params = new URLSearchParams({ orderTrackingId, merchantReference });
+          const response = await fetch(`/api/pesapal?${params.toString()}`);
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(result.error || 'Could not verify the payment status.');
+
+          if (result.paymentStatus === 'COMPLETED') {
+            pesapalReturnStatus.dataset.state = 'success';
+            pesapalReturnStatus.textContent = 'Pesapal confirms your payment. Thank you.';
+          } else if (['FAILED', 'REVERSED', 'INVALID'].includes(result.paymentStatus)) {
+            pesapalReturnStatus.dataset.state = 'error';
+            pesapalReturnStatus.textContent = 'Pesapal reports that the payment was not completed.';
+          } else {
+            pesapalReturnStatus.textContent = 'Payment is still processing. Please check again before retrying.';
+          }
+        } catch (error) {
+          pesapalReturnStatus.dataset.state = 'error';
+          pesapalReturnStatus.textContent = error.message || 'Could not verify the payment status.';
+        } finally {
+          window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+        }
+      }
+
+      showPesapalPaymentResult();
     </script>
 
   </body>
