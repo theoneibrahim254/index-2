@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KitchenPro Essentials | Premium Kitchen Utensils</title>
+    <meta
+      name="description"
+      content="Shop premium kitchen utensils, cookware, and home essentials with reliable delivery and friendly support."
+    />
+    <style>
+      :root {
+        --primary: #f59e0b;
+        --primary-dark: #c26900;
+        --primary-soft: #fff2db;
+        --accent: #fef3c7;
+        --bg: #f8f4ef;
+        --surface: #ffffff;
+        --text: #1a1d24;
+        --muted: #5b6472;
+        --line: #f0e2cd;
+        --success: #16a34a;
+        --shadow: 0 24px 60px rgba(26, 29, 36, 0.12);
+        --dark: #151922;
+        --dark-soft: #222c39;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #f9f5f0 0%, #fffdfb 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      img { max-width: 100%; display: block; }
+
+      a { text-decoration: none; color: inherit; }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .top-bar {
+        background: linear-gradient(90deg, #171d27, #1f2d3d);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        padding: 8px 0;
+      }
+
+      .top-bar .container {
+        padding: 8px 0;
+      }
+
+      .banner-tag {
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        color: #f6d48e;
+      }
+
+      header {
+        background: rgba(255, 255, 255, 0.84);
+        border-bottom: 1px solid rgba(26, 29, 36, 0.05);
+        backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0;
+      }
+
+      .brand {
+        font-size: 1.8rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--dark);
+      }
+
+      nav {
+        gap: 22px;
+      }
+
+      nav a {
+        color: var(--muted);
+        font-size: 0.94rem;
+        transition: color 0.2s ease;
+      }
+
+      nav a:hover {
+        color: var(--dark);
+      }
+
+      .btn {
+        border-radius: 14px;
+        padding: 15px 22px;
+        font-size: 0.95rem;
+        letter-spacing: 0.02em;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+        box-shadow: 0 14px 30px rgba(217, 119, 6, 0.3);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(26, 29, 36, 0.08);
+        color: var(--dark);
+      }
+
+      .hero {
+        background: linear-gradient(120deg, rgba(17, 24, 39, 0.75), rgba(17, 24, 39, 0.18), rgba(255, 255, 255, 0.08)),
+                    url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        padding: 76px 0 72px;
+      }
+
+      .hero-grid {
+        gap: 52px;
+      }
+
+      .eyebrow {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff9ef;
+        backdrop-filter: blur(10px);
+      }
+
+      h1 {
+        color: #fff;
+        text-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+      }
+
+      .hero p {
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 1.14rem;
+      }
+
+      .stats {
+        margin-top: 34px;
+        gap: 18px;
+      }
+
+      .stat {
+        min-width: 138px;
+        background: rgba(255, 255, 255, 0.09);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 18px;
+        padding: 14px 16px;
+        color: #fff;
+        backdrop-filter: blur(8px);
+      }
+
+      .stat strong {
+        color: #fff;
+      }
+
+      .stat span {
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .floating-card {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(255, 182, 74, 0.38);
+        border-radius: 18px;
+        padding: 15px 18px;
+        color: var(--dark);
+        box-shadow: 0 18px 38px rgba(17, 24, 39, 0.12);
+      }
+
+      .product-shot {
+        background: linear-gradient(145deg, rgba(255, 215, 160, 0.68), rgba(255, 243, 214, 0.3), rgba(255, 255, 255, 0.18)),
+                    url('https://images.unsplash.com/photo-1582515073490-39981397c445?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 191, 84, 0.5);
+        box-shadow: 0 30px 60px rgba(17, 24, 39, 0.22);
+      }
+
+      .section {
+        padding: 90px 0;
+      }
+
+      .section-header {
+        margin-bottom: 38px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(2.1rem, 4vw, 3.4rem);
+        letter-spacing: -0.05em;
+        color: var(--dark);
+      }
+
+      .section-header p {
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .features {
+        gap: 22px;
+      }
+
+      .feature {
+        background: linear-gradient(180deg, #fff, #fffaf4);
+        border: 1px solid rgba(255, 187, 94, 0.18);
+        border-radius: 24px;
+        box-shadow: 0 16px 28px rgba(17, 24, 39, 0.04);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #fff3d9, #ffe0a3);
+        color: var(--primary-dark);
+        font-size: 1.7rem;
+      }
+
+      .feature h3 {
+        font-size: 1.15rem;
+      }
+
+      .products {
+        gap: 28px;
+      }
+
+      .product-card {
+        background: linear-gradient(180deg, #fff, #fffdfb);
+        border: 1px solid rgba(255, 183, 77, 0.18);
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 18px 30px rgba(17, 24, 39, 0.04);
+      }
+
+      .product-image {
+        height: 260px;
+        background: linear-gradient(135deg, rgba(255, 202, 116, 0.38), rgba(255, 241, 202, 0.2)),
+                    url('https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+      }
+
+      .product-image:nth-of-type(2) {
+        background: linear-gradient(135deg, rgba(64, 194, 128, 0.28), rgba(228, 244, 233, 0.15)),
+                    url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+      }
+
+      .product-image:nth-of-type(3) {
+        background: linear-gradient(135deg, rgba(250, 155, 196, 0.22), rgba(255, 244, 210, 0.2)),
+                    url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+      }
+
+      .product-body {
+        padding: 22px 20px 24px;
+      }
+
+      .product-name {
+        font-size: 1.3rem;
+      }
+
+      .price {
+        font-size: 1.35rem;
+        background: var(--primary-soft);
+        border: 1px solid rgba(245, 158, 11, 0.14);
+        color: var(--primary-dark);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
+      }
+
+      .product-body p {
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .cta-panel {
+        background: linear-gradient(135deg, #1b222d 0%, #111827 35%, #ef8d2a 100%);
+        border-radius: 30px;
+        padding: 34px 30px;
+        box-shadow: 0 20px 42px rgba(17, 24, 39, 0.14);
+      }
+
+      .cta-panel h3 {
+        color: #fff;
+      }
+
+      .cta-panel p {
+        color: rgba(255,255,255,0.8);
+      }
+
+      .info-box {
+        background: linear-gradient(180deg, #fff, #fffaf4);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 184, 94, 0.2);
+        box-shadow: 0 14px 24px rgba(17, 24, 39, 0.04);
+      }
+
+      .info-box h3 {
+        color: var(--dark);
+      }
+
+      .dot {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      }
+
+      footer {
+        background: linear-gradient(180deg, #111827, #0b1020);
+      }
+
+      .mpesa-modal .modal-card {
+        border-radius: 26px;
+        box-shadow: 0 28px 60px rgba(17, 24, 39, 0.22);
+      }
+
+      .modal-top {
+        background: linear-gradient(135deg, #10b981, #059669);
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .products {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .products {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-panel {
+          grid-template-columns: 1fr;
+          display: grid;
+          text-align: center;
+        }
+      }
+
+      html {
+        scroll-padding-top: 100px;
+      }
+
+      body {
+        background: #fbf8f2;
+        color: #202820;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+      }
+
+      .container {
+        width: min(1160px, calc(100% - 48px));
+      }
+
+      .top-bar {
+        padding: 0;
+        color: #f9f5e9;
+        font-size: 0.78rem;
+      }
+
+      .top-bar .container {
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 6px 0;
+      }
+
+      .banner-tag {
+        border-radius: 999px;
+        padding: 3px 11px;
+        font-size: 0.72rem;
+      }
+
+      header {
+        background: rgba(255, 253, 248, 0.94);
+        border-bottom-color: #ede8dd;
+      }
+
+      .nav {
+        min-height: 82px;
+        padding: 12px 0;
+        gap: 28px;
+      }
+
+      .brand {
+        flex-shrink: 0;
+        font-size: 1.45rem;
+        letter-spacing: 0.04em;
+      }
+
+      .brand span {
+        color: #b77832;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 2.4vw, 32px);
+      }
+
+      nav a {
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      nav a:hover {
+        color: #a96321;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 12px 19px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font: inherit;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 1.2;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn:focus-visible,
+      nav a:focus-visible {
+        outline: 3px solid #d59a50;
+        outline-offset: 3px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #f8c45b, #edae34);
+        color: #282414;
+        box-shadow: 0 8px 20px rgba(173, 112, 31, 0.2);
+      }
+
+      .btn-primary:hover {
+        box-shadow: 0 12px 24px rgba(173, 112, 31, 0.3);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.88);
+        border-color: #e8e2d7;
+        color: #24352e;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(64px, 8vw, 100px) 0;
+        background:
+          radial-gradient(ellipse at 78% 12%, rgba(147, 170, 116, 0.22), transparent 34%),
+          linear-gradient(120deg, #18372e 0%, #23483a 58%, #315540 100%);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(340px, 0.88fr);
+        align-items: center;
+        gap: clamp(36px, 7vw, 92px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        padding: 7px 13px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        line-height: 1.3;
+        text-transform: uppercase;
+      }
+
+      .hero .eyebrow {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.22);
+        color: #f6dfb4;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 650px;
+        margin: 22px 0 18px;
+        color: #fffdf8;
+        font-size: clamp(2.7rem, 5.3vw, 4.65rem);
+        font-weight: 750;
+        letter-spacing: -0.055em;
+        line-height: 1.04;
+        text-shadow: none;
+      }
+
+      .hero p {
+        max-width: 550px;
+        margin-bottom: 26px;
+        color: rgba(255, 253, 248, 0.78);
+        font-size: clamp(1rem, 1.5vw, 1.12rem);
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-actions .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.28);
+        color: #fffdf8;
+      }
+
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 38px;
+      }
+
+      .stat {
+        display: flex;
+        min-width: 112px;
+        flex: 1 1 112px;
+        flex-direction: column;
+        gap: 2px;
+        padding: 12px 14px;
+        border-color: rgba(255, 255, 255, 0.13);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .stat strong {
+        font-size: 1.05rem;
+      }
+
+      .stat span {
+        font-size: 0.75rem;
+      }
+
+      .hero-visual {
+        position: relative;
+        min-height: 470px;
+      }
+
+      .product-shot {
+        position: absolute;
+        inset: 28px 14px 26px;
+        overflow: hidden;
+        border: 7px solid rgba(255, 255, 255, 0.15);
+        border-radius: 34px;
+        background-color: #d7c19a;
+        background-position: center;
+        background-size: cover;
+        box-shadow: 0 28px 70px rgba(6, 21, 15, 0.3);
+      }
+
+      .utensil-display {
+        display: none;
+      }
+
+      .floating-card {
+        position: absolute;
+        z-index: 1;
+        display: flex;
+        min-width: 190px;
+        flex-direction: column;
+        gap: 2px;
+        padding: 14px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 16px;
+        background: rgba(255, 253, 248, 0.96);
+        color: #26332a;
+        box-shadow: 0 16px 38px rgba(18, 30, 21, 0.2);
+      }
+
+      .floating-card.top {
+        top: 0;
+        right: -10px;
+      }
+
+      .floating-card.bottom {
+        bottom: 0;
+        left: -14px;
+      }
+
+      .card-label {
+        color: #78816f;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .floating-card strong {
+        font-size: 1.02rem;
+      }
+
+      .floating-card div:last-child {
+        color: #778071;
+        font-size: 0.83rem;
+      }
+
+      .section {
+        padding: clamp(64px, 8vw, 96px) 0;
+      }
+
+      .section-header {
+        max-width: 700px;
+        margin: 0 auto 38px;
+        text-align: center;
+      }
+
+      .section-header .eyebrow {
+        background: #f2e9d8;
+        border: 1px solid #eadcc4;
+        color: #8d632f;
+      }
+
+      .section-header h2 {
+        margin: 14px 0 12px;
+        color: #26332a;
+        font-size: clamp(2rem, 4vw, 3.15rem);
+        letter-spacing: -0.045em;
+        line-height: 1.12;
+      }
+
+      .section-header p {
+        margin-bottom: 0;
+        color: #6d756b;
+        font-size: 1rem;
+      }
+
+      #features {
+        background: #fffdf9;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .feature {
+        padding: 24px 22px;
+        border-color: #eee8dc;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 10px 28px rgba(36, 44, 35, 0.045);
+      }
+
+      .feature-icon {
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+        border-radius: 17px;
+      }
+
+      .feature h3 {
+        margin-bottom: 8px;
+        color: #26332a;
+      }
+
+      .feature p,
+      .product-body p {
+        margin-bottom: 0;
+        color: #6d756b;
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      .products {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .product-card {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        border-color: #eee8dc;
+        border-radius: 22px;
+        background: #fff;
+        box-shadow: 0 12px 30px rgba(36, 44, 35, 0.06);
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 38px rgba(36, 44, 35, 0.12);
+      }
+
+      .product-image {
+        position: relative;
+        height: 245px;
+        background-color: #e8e0d1;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .products .product-card:nth-child(1) .product-image {
+        background-image: linear-gradient(180deg, rgba(28, 35, 25, 0.02), rgba(28, 35, 25, 0.18)), url("https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=85");
+      }
+
+      .products .product-card:nth-child(2) .product-image {
+        background-image: linear-gradient(180deg, rgba(28, 35, 25, 0.02), rgba(28, 35, 25, 0.18)), url("https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=85");
+      }
+
+      .products .product-card:nth-child(3) .product-image {
+        background-image: linear-gradient(180deg, rgba(28, 35, 25, 0.02), rgba(28, 35, 25, 0.18)), url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85");
+      }
+
+      .mini-tool {
+        display: none;
+      }
+
+      .product-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .product-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .product-name {
+        margin: 2px 0 8px;
+        color: #26332a;
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
+      }
+
+      .price {
+        flex-shrink: 0;
+        padding: 6px 9px;
+        border: 1px solid #f0dfc0;
+        border-radius: 999px;
+        background: #fbf3e4;
+        color: #895b25;
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      .product-body p {
+        min-height: 3.2em;
+      }
+
+      .product-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: auto;
+        padding-top: 18px;
+      }
+
+      .rating {
+        color: #d69a31;
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+      }
+
+      .product-meta .btn {
+        min-height: 40px;
+        padding: 10px 16px;
+        font-size: 0.8rem;
+      }
+
+      .cta-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: clamp(28px, 5vw, 48px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 26px;
+        background:
+          radial-gradient(ellipse at 88% 0%, rgba(222, 170, 88, 0.28), transparent 38%),
+          linear-gradient(120deg, #18372e, #2b5140);
+        box-shadow: 0 20px 42px rgba(32, 49, 37, 0.14);
+      }
+
+      .cta-panel h3 {
+        margin-bottom: 7px;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        letter-spacing: -0.03em;
+      }
+
+      .cta-panel p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .info-box {
+        padding: 28px;
+        border-color: #eee8dc;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 12px 28px rgba(36, 44, 35, 0.05);
+      }
+
+      .info-box h3 {
+        margin-bottom: 20px;
+        font-size: 1.22rem;
+      }
+
+      .info-list {
+        display: grid;
+        gap: 14px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .info-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        color: #626d63;
+        font-size: 0.9rem;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        flex: 0 0 8px;
+        margin-top: 7px;
+        border-radius: 50%;
+      }
+
+      footer {
+        padding: 28px 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.83rem;
+        text-align: center;
+      }
+
+      .mpesa-modal {
+        position: fixed;
+        z-index: 100;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto;
+        padding: 24px;
+        background: rgba(16, 29, 22, 0.62);
+        backdrop-filter: blur(7px);
+      }
+
+      .mpesa-modal.visible {
+        display: flex;
+      }
+
+      .mpesa-modal .modal-card {
+        width: min(100%, 460px);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background: #fffdf9;
+      }
+
+      .modal-top {
+        padding: 22px 26px;
+        background: linear-gradient(135deg, #23844d, #17683c);
+      }
+
+      .modal-top h3 {
+        margin: 0;
+        color: #fff;
+        font-size: 1.25rem;
+      }
+
+      .modal-body {
+        padding: 25px 26px 26px;
+      }
+
+      .form-row {
+        display: grid;
+        gap: 7px;
+        margin-bottom: 17px;
+      }
+
+      .form-row label {
+        color: #475348;
+        font-size: 0.83rem;
+        font-weight: 700;
+      }
+
+      .form-row input {
+        width: 100%;
+        min-height: 46px;
+        padding: 10px 13px;
+        border: 1px solid #dedfd5;
+        border-radius: 10px;
+        background: #fff;
+        color: #26332a;
+        font: inherit;
+      }
+
+      .form-row input:focus {
+        border-color: #3b8c5c;
+        outline: 3px solid rgba(59, 140, 92, 0.15);
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      @media (max-width: 960px) {
+        .nav {
+          gap: 18px;
+        }
+
+        .nav-actions .btn-secondary {
+          display: none;
+        }
+
+        .hero-grid {
+          grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+          gap: 34px;
+        }
+
+        .hero-visual {
+          min-height: 410px;
+        }
+
+        .features {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 700px) {
+        .container {
+          width: min(100% - 36px, 560px);
+        }
+
+        .top-bar .container {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .top-bar .container > span:first-child {
+          display: none;
+        }
+
+        .nav {
+          min-height: auto;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 8px 14px;
+        }
+
+        .brand {
+          font-size: 1.28rem;
+        }
+
+        .nav-actions .btn {
+          min-height: 40px;
+          padding: 10px 13px;
+          font-size: 0.76rem;
+        }
+
+        nav {
+          order: 3;
+          width: 100%;
+          justify-content: space-between;
+          gap: 10px;
+          padding-top: 9px;
+          border-top: 1px solid #eee8dc;
+        }
+
+        nav a {
+          font-size: 0.8rem;
+        }
+
+        .hero {
+          padding: 56px 0 62px;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 38px;
+        }
+
+        h1 {
+          font-size: clamp(2.55rem, 11vw, 4rem);
+        }
+
+        .hero-visual {
+          min-height: min(76vw, 390px);
+        }
+
+        .product-shot {
+          inset: 20px 12px;
+        }
+
+        .floating-card.top {
+          right: 0;
+        }
+
+        .floating-card.bottom {
+          left: 0;
+        }
+
+        .stat {
+          min-width: 0;
+          flex-basis: calc(33.333% - 10px);
+          padding: 10px;
+        }
+
+        .stat strong {
+          font-size: 0.92rem;
+        }
+
+        .stat span {
+          font-size: 0.66rem;
+        }
+
+        .products {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px;
+        }
+
+        .product-image {
+          height: 190px;
+        }
+
+        .product-body {
+          padding: 16px;
+        }
+
+        .product-top {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .product-body p {
+          min-height: 0;
+        }
+
+        .product-meta {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 460px) {
+        .products {
+          grid-template-columns: 1fr;
+        }
+
+        .product-image {
+          height: 230px;
+        }
+
+        .product-top {
+          align-items: center;
+          flex-direction: row;
+          gap: 8px;
+        }
+
+        .product-meta {
+          align-items: center;
+          flex-direction: row;
+        }
+
+        .cta-panel {
+          display: grid;
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .cta-panel .btn {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="container">
+        <span>Free delivery on orders above KSh 3,500</span>
+        <span class="banner-tag">Reliable delivery, friendly support</span>
+      </div>
+    </div>
+
+    <header>
+      <div class="container nav">
+        <div class="brand">Kitchen<span>Pro</span></div>
+        <nav aria-label="Navigation">
+          <a href="#home">Home</a>
+          <a href="#products">Products</a>
+          <a href="#features">Why us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-secondary" type="button">Sign in</button>
+          <a class="btn btn-primary" href="#contact">Contact to order</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">Fresh home essentials</span>
+            <h1>Cook better with premium kitchen tools.</h1>
+            <p>
+              Transform your kitchen with durable cookware, everyday utensils, and smart storage
+              essentials designed for busy homes and passionate cooks.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#contact">Shop now</a>
+              <a class="btn btn-secondary" href="#products">View catalog</a>
+            </div>
+            <div class="stats">
+              <div class="stat">
+                <strong>5,000+</strong>
+                <span>Happy homes</span>
+              </div>
+              <div class="stat">
+                <strong>2-day</strong>
+                <span>Fast delivery</span>
+              </div>
+              <div class="stat">
+                <strong>4.9/5</strong>
+                <span>Customer rating</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="Kitchen utensils display">
+            <div class="floating-card top">
+              <span class="card-label">Best seller</span>
+              <strong>Chef's Bundle</strong>
+              <div>KSh 6,500</div>
+            </div>
+
+            <div class="product-shot">
+              <div class="utensil-display">
+                <div class="kettle"></div>
+                <div class="spoon"></div>
+              </div>
+            </div>
+
+            <div class="floating-card bottom">
+              <span class="card-label">Need a hand?</span>
+              <strong>We're here to help</strong>
+              <div>Contact us for product details</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Why choose us</span>
+            <h2>Kitchen essentials built for everyday life</h2>
+            <p>From prep to serving, our products deliver quality, comfort, and performance.</p>
+          </div>
+
+          <div class="features">
+            <article class="feature">
+              <div class="feature-icon">🧰</div>
+              <h3>Premium quality</h3>
+              <p>Strong, food-safe materials crafted for regular use and long-term durability.</p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">🚚</div>
+              <h3>Fast delivery</h3>
+              <p>We process and dispatch orders quickly across Nairobi and other major towns.</p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">💳</div>
+              <h3>Easy ordering</h3>
+              <p>Contact our team for product recommendations and order support.</p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">⭐</div>
+              <h3>Trusted service</h3>
+              <p>Thousands of households count on us for reliable products and friendly support.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Featured picks</span>
+            <h2>Best-selling kitchen utensils</h2>
+            <p>Upgrade your kitchen with practical essentials that look great and perform even better.</p>
+          </div>
+
+          <div class="products">
+            <article class="product-card">
+              <div class="product-image">
+                <div class="mini-tool" aria-hidden="true"></div>
+              </div>
+              <div class="product-body">
+                <div class="product-top">
+                  <h3 class="product-name">Chef's Bundle</h3>
+                  <span class="price">KSh 6,500</span>
+                </div>
+                <p>10-piece premium cookware set with handles, lids, and storage-friendly design.</p>
+                <div class="product-meta">
+                  <span class="rating">★★★★★</span>
+                  <a class="btn btn-primary" href="#contact">Buy now</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-image">
+                <div class="mini-tool" aria-hidden="true"></div>
+              </div>
+              <div class="product-body">
+                <div class="product-top">
+                  <h3 class="product-name">Silk Spoon Set</h3>
+                  <span class="price">KSh 1,900</span>
+                </div>
+                <p>Non-stick friendly utensils for cooking, mixing, serving, and easy cleanup.</p>
+                <div class="product-meta">
+                  <span class="rating">★★★★★</span>
+                  <a class="btn btn-primary" href="#contact">Buy now</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-image">
+                <div class="mini-tool" aria-hidden="true"></div>
+              </div>
+              <div class="product-body">
+                <div class="product-top">
+                  <h3 class="product-name">Storage Canisters</h3>
+                  <span class="price">KSh 3,200</span>
+                </div>
+                <p>Keep flour, rice, snacks, and dry ingredients neatly arranged and fresh longer.</p>
+                <div class="product-meta">
+                  <span class="rating">★★★★★</span>
+                  <a class="btn btn-primary" href="#contact">Buy now</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel">
+            <div>
+              <h3>Ready to shop smarter?</h3>
+              <p>Get help choosing the right kitchen products for your home.</p>
+            </div>
+            <a class="btn btn-primary" href="#contact">Contact to order</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container contact-grid">
+          <div class="info-box">
+            <h3>Contact us</h3>
+            <ul class="info-list">
+              <li><span class="dot"></span> <span>Email: ja7408559@gmail.com</span></li>
+              <li><span class="dot"></span> <span>Phone: 0780241954</span></li>
+              <li><span class="dot"></span> <span>Location: Nairobi, Kenya</span></li>
+              <li><span class="dot"></span> <span>Open: Mon-Sat, 8:00am - 7:00pm</span></li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h3>Why customers love us</h3>
+            <ul class="info-list">
+              <li><span class="dot"></span> <span>Affordable, premium-quality utensils</span></li>
+              <li><span class="dot"></span> <span>Helpful customer support for product and order questions</span></li>
+              <li><span class="dot"></span> <span>Friendly customer support before and after purchase</span></li>
+              <li><span class="dot"></span> <span>Reliable delivery and easy returns</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        © 2026 KitchenPro Essentials. Crafted for better cooking and happier homes.
+      </div>
+    </footer>
+
+  </body>
+</html>
