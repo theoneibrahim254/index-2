@@ -897,6 +897,10 @@
       }
 
       .modal-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
         padding: 22px 26px;
         background: linear-gradient(135deg, #23844d, #17683c);
       }
@@ -905,6 +909,15 @@
         margin: 0;
         color: #fff;
         font-size: 1.25rem;
+      }
+
+      .modal-close {
+        border: 0;
+        padding: 6px 0 6px 12px;
+        background: transparent;
+        color: #fff;
+        font: inherit;
+        cursor: pointer;
       }
 
       .modal-body {
@@ -944,6 +957,46 @@
         justify-content: flex-end;
         gap: 10px;
         margin-top: 22px;
+      }
+
+      .payment-consent {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .payment-consent input {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        margin: 3px 0 0;
+        accent-color: #16834a;
+      }
+
+      .payment-status {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .payment-status:empty {
+        display: none;
+      }
+
+      .payment-note {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .payment-status[data-state="error"] {
+        color: #b42318;
+      }
+
+      .payment-status[data-state="success"] {
+        color: #167241;
       }
 
       @media (max-width: 960px) {
@@ -1268,7 +1321,7 @@
                 <p>10-piece premium cookware set with handles, lids, and storage-friendly design.</p>
                 <div class="product-meta">
                   <span class="rating">★★★★★</span>
-                  <a class="btn btn-primary" href="#contact">Buy now</a>
+                  <a class="btn btn-primary" href="#mpesaModal" data-mpesa-product="chef-bundle">Pay with M-Pesa</a>
                 </div>
               </div>
             </article>
@@ -1285,7 +1338,7 @@
                 <p>Non-stick friendly utensils for cooking, mixing, serving, and easy cleanup.</p>
                 <div class="product-meta">
                   <span class="rating">★★★★★</span>
-                  <a class="btn btn-primary" href="#contact">Buy now</a>
+                  <a class="btn btn-primary" href="#mpesaModal" data-mpesa-product="silk-spoon-set">Pay with M-Pesa</a>
                 </div>
               </div>
             </article>
@@ -1302,7 +1355,7 @@
                 <p>Keep flour, rice, snacks, and dry ingredients neatly arranged and fresh longer.</p>
                 <div class="product-meta">
                   <span class="rating">★★★★★</span>
-                  <a class="btn btn-primary" href="#contact">Buy now</a>
+                  <a class="btn btn-primary" href="#mpesaModal" data-mpesa-product="storage-canisters">Pay with M-Pesa</a>
                 </div>
               </div>
             </article>
@@ -1352,6 +1405,117 @@
         © 2026 KitchenPro Essentials. Crafted for better cooking and happier homes.
       </div>
     </footer>
+
+    <div class="mpesa-modal" id="mpesaModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mpesaTitle">
+        <div class="modal-top">
+          <h3 id="mpesaTitle">Pay with M-Pesa</h3>
+          <button class="modal-close" type="button" data-close-mpesa>Close</button>
+        </div>
+        <div class="modal-body">
+          <p>Enter your phone number to receive an M-Pesa prompt. You will need to approve it on your phone.</p>
+          <form id="mpesaForm">
+            <input id="mpesaProductId" type="hidden" />
+            <div class="form-row">
+              <label for="mpesaProduct">Product</label>
+              <input id="mpesaProduct" type="text" readonly />
+            </div>
+            <div class="form-row">
+              <label for="mpesaAmount">Amount</label>
+              <input id="mpesaAmount" type="text" readonly />
+            </div>
+            <div class="form-row">
+              <label for="mpesaPhone">M-Pesa phone number</label>
+              <input id="mpesaPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07XX XXX XXX" pattern="(?:\+?254|0)(?:7|1)[0-9]{8}" required />
+            </div>
+            <p class="payment-note">Your number is used to request the prompt. No payment is taken unless you approve it on your phone.</p>
+            <label class="payment-consent" for="mpesaConsent">
+              <input id="mpesaConsent" type="checkbox" required />
+              <span>I authorize an M-Pesa prompt for this purchase. I will approve it on my phone only if the details are correct.</span>
+            </label>
+            <div class="modal-actions">
+              <button class="btn btn-primary" id="mpesaSubmit" type="submit">Send M-Pesa prompt</button>
+            </div>
+            <p class="payment-status" id="mpesaStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const mpesaProducts = {
+        'chef-bundle': { name: "Chef's Bundle", amount: 6500 },
+        'silk-spoon-set': { name: 'Silk Spoon Set', amount: 1900 },
+        'storage-canisters': { name: 'Storage Canisters', amount: 3200 }
+      };
+      const mpesaModal = document.getElementById('mpesaModal');
+      const mpesaForm = document.getElementById('mpesaForm');
+      const mpesaPhone = document.getElementById('mpesaPhone');
+      const mpesaStatus = document.getElementById('mpesaStatus');
+      const mpesaSubmit = document.getElementById('mpesaSubmit');
+
+      function closeMpesaPrompt() {
+        mpesaModal.classList.remove('visible');
+        mpesaModal.setAttribute('aria-hidden', 'true');
+      }
+
+      document.querySelectorAll('[data-mpesa-product]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const productId = link.dataset.mpesaProduct;
+          const product = mpesaProducts[productId];
+          if (!product) return;
+
+          document.getElementById('mpesaProductId').value = productId;
+          document.getElementById('mpesaProduct').value = product.name;
+          document.getElementById('mpesaAmount').value = `KSh ${product.amount.toLocaleString('en-KE')}`;
+          mpesaPhone.value = '';
+          mpesaStatus.textContent = '';
+          mpesaStatus.removeAttribute('data-state');
+          mpesaModal.classList.add('visible');
+          mpesaModal.setAttribute('aria-hidden', 'false');
+          mpesaPhone.focus();
+        });
+      });
+
+      document.querySelector('[data-close-mpesa]').addEventListener('click', closeMpesaPrompt);
+      mpesaModal.addEventListener('click', (event) => {
+        if (event.target === mpesaModal) closeMpesaPrompt();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && mpesaModal.classList.contains('visible')) closeMpesaPrompt();
+      });
+
+      mpesaForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!mpesaForm.reportValidity()) return;
+
+        mpesaSubmit.disabled = true;
+        mpesaStatus.removeAttribute('data-state');
+        mpesaStatus.textContent = 'Sending your request...';
+
+        try {
+          const response = await fetch('/api/mpesa', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              productId: document.getElementById('mpesaProductId').value,
+              phone: mpesaPhone.value
+            })
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(result.error || 'The M-Pesa prompt could not be sent.');
+
+          mpesaStatus.dataset.state = 'success';
+          mpesaStatus.textContent = 'Prompt sent. Check your phone and approve only if the product and amount are correct. This page does not confirm payment.';
+        } catch (error) {
+          mpesaStatus.dataset.state = 'error';
+          mpesaStatus.textContent = error.message || 'The M-Pesa prompt could not be sent. Please try again.';
+        } finally {
+          mpesaSubmit.disabled = false;
+        }
+      });
+    </script>
 
   </body>
 </html>
